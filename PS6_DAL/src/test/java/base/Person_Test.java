@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
 
@@ -49,6 +50,55 @@ public class Person_Test {
 		person1.setStreet("702 Stone Gate Blvd");
 		person1.setPostalCode(21921);
 		
+	}
+	/*
+	 * Don't really need this one since
+	 * i already did it in the delete test
+	 * but since it looks like part of the
+	 * deliverable
+	 */
+	
+	/*@AfterClass
+	public static void DeletepersonInstance() {
+		try{
+			PersonDAL.deletePerson(person1UUID);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+	}
+	*/
+	
+	@Test
+	public void addtest(){
+		PersonDAL.addPerson(person1);
+	}
+	
+	@Test
+	public void gettest(){
+		PersonDomainModel persontest = PersonDAL.getPerson(person1.getPersonID());
+		assertEquals(persontest.getFirstName(), person1.getFirstName());
+		assertEquals(persontest.getMiddleName(), person1.getMiddleName());
+		assertEquals(persontest.getLastName(), person1.getLastName());
+		assertEquals(persontest.getBirthday(), person1.getBirthday());
+		assertEquals(persontest.getCity(), person1.getCity());
+		assertEquals(persontest.getClass(), person1.getClass());
+		assertEquals(persontest.getPersonID(), person1.getPersonID());
+		assertEquals(persontest.getPostalCode(), person1.getPostalCode());
+		assertEquals(persontest.getStreet(), person1.getStreet());
+	}
+	@Test
+	public void updatetest(){
+		person1.setFirstName("Newname");
+		PersonDAL.updatePerson(person1);
+		assertEquals(PersonDAL.getPerson(person1UUID).getFirstName(),"Newname");
+	}
+	@Test
+	public void deletetest(){
+		//a blank arraylist is equal to another blank arraylist since nothing in data.
+		ArrayList testlist = new ArrayList();
+		PersonDAL.deletePerson(person1UUID);
+		assertEquals(PersonDAL.getPersons(),testlist);
 	}
 	
 	
